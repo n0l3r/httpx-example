@@ -17,8 +17,8 @@ import (
 	"net/http/httptest"
 	"strings"
 
-	"github.com/NTR3667/httpx"
-	httpxauth "github.com/NTR3667/httpx/auth"
+	"github.com/n0l3r/httpx"
+	httpxauth "github.com/n0l3r/httpx/auth"
 )
 
 // Run executes all auth examples.
