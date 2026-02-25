@@ -1,6 +1,10 @@
 # httpx-example
 
-Comprehensive examples demonstrating all features of [`httpx`](../httpx) — production-grade HTTP client library for Go.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/n0l3r/httpx/main/logo.svg" alt="httpx" width="520"/>
+</p>
+
+Comprehensive examples demonstrating all features of [`httpx`](https://github.com/n0l3r/httpx) — production-grade HTTP client library for Go.
 
 ## Running
 
