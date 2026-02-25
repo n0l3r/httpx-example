@@ -18,7 +18,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/NTR3667/httpx"
+	"github.com/n0l3r/httpx"
 )
 
 // Run executes all middleware examples.
