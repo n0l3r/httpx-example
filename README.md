@@ -170,3 +170,9 @@ httpx-example/
 require github.com/n0l3r/httpx v0.0.0-...
 replace github.com/n0l3r/httpx => ../httpx
 ```
+
+---
+
+## License
+
+MIT License — Copyright (c) 2025 n0l3r. See [httpx license](https://github.com/n0l3r/httpx/blob/main/LICENSE) for details.
