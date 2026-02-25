@@ -1,11 +1,11 @@
-module github.com/NTR3667/httpx-demo
+module github.com/n0l3r/httpx-example
 
 go 1.24.0
 
-replace github.com/NTR3667/httpx => ../httpx
+replace github.com/n0l3r/httpx => ../httpx
 
 require (
-	github.com/NTR3667/httpx v0.0.0-00010101000000-000000000000
+	github.com/n0l3r/httpx v0.0.0-20260225184603-3c64813afc87
 	github.com/sony/gobreaker/v2 v2.4.0
 	go.opentelemetry.io/otel v1.40.0
 	go.opentelemetry.io/otel/sdk v1.40.0
