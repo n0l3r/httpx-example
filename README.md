@@ -61,6 +61,8 @@ httpx-example/
 | 7 | Response helpers | `.IsSuccess()`, `.IsClientError()`, `.EnsureSuccess()` |
 | 8 | Context deadline | `context.WithTimeout` → `httpx.IsTimeout(err)` |
 | 9 | Default headers | `WithDefaultHeaders(map)` |
+| 10 | Form upload | `BodyForm(url.Values)` → `application/x-www-form-urlencoded` |
+| 11 | Multipart upload | `BodyMultipart(fields, []FormFile{...})` → `multipart/form-data` |
 
 ### 🔄 Retry (`examples/retry`)
 

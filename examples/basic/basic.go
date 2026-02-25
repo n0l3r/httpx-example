@@ -6,6 +6,8 @@
 // - Response helpers
 // - Default headers & base URL
 // - Context support
+// - Form upload (application/x-www-form-urlencoded)
+// - Multipart file upload (multipart/form-data)
 package basic
 
 import (
@@ -14,6 +16,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"strings"
 	"time"
 
@@ -51,6 +54,8 @@ func Run() {
 	exampleResponseHelpers(srv.URL)
 	exampleContextDeadline(srv.URL)
 	exampleDefaultHeaders(srv.URL)
+	exampleBodyForm(srv.URL)
+	exampleBodyMultipart(srv.URL)
 }
 
 // --- Examples ---
@@ -215,6 +220,47 @@ func exampleDefaultHeaders(baseURL string) {
 	fmt.Printf("    X-Environment: %q\n", headers["X-Environment"])
 }
 
+func exampleBodyForm(baseURL string) {
+	fmt.Println("\n[10] BodyForm — application/x-www-form-urlencoded")
+
+	c, _ := httpx.New()
+	resp, err := c.Execute(context.Background(), "POST", baseURL+"/login",
+		httpx.WithFormBody(url.Values{
+			"username": {"alice"},
+			"password": {"secret"},
+		}),
+	)
+	if err != nil {
+		fmt.Printf("  ✗ %v\n", err)
+		return
+	}
+	fmt.Printf("  ✓ status=%d  Content-Type sent: application/x-www-form-urlencoded\n", resp.StatusCode())
+}
+
+func exampleBodyMultipart(baseURL string) {
+	fmt.Println("\n[11] BodyMultipart — multipart/form-data file upload")
+
+	c, _ := httpx.New()
+	resp, err := c.Execute(context.Background(), "POST", baseURL+"/upload",
+		httpx.WithMultipartBody(
+			map[string]string{"title": "my report"},
+			[]httpx.FormFile{
+				{
+					FieldName:   "file",
+					FileName:    "report.txt",
+					Content:     strings.NewReader("report content here"),
+					ContentType: "text/plain",
+				},
+			},
+		),
+	)
+	if err != nil {
+		fmt.Printf("  ✗ %v\n", err)
+		return
+	}
+	fmt.Printf("  ✓ status=%d  file uploaded as multipart/form-data\n", resp.StatusCode())
+}
+
 // --- Embedded test server ---
 
 func startServer() *httptest.Server {
@@ -272,6 +318,22 @@ func startServer() *httptest.Server {
 			}
 		}
 		json.NewEncoder(w).Encode(out)
+	})
+
+	mux.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
+		if err := r.ParseForm(); err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+		w.WriteHeader(http.StatusOK)
+	})
+
+	mux.HandleFunc("/upload", func(w http.ResponseWriter, r *http.Request) {
+		if err := r.ParseMultipartForm(1 << 20); err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+		w.WriteHeader(http.StatusOK)
 	})
 
 	return httptest.NewServer(mux)
