@@ -23,16 +23,16 @@ import (
 	"os"
 	"strings"
 
-	"github.com/NTR3667/httpx-demo/examples/auth"
-	"github.com/NTR3667/httpx-demo/examples/basic"
-	"github.com/NTR3667/httpx-demo/examples/cache"
-	cb "github.com/NTR3667/httpx-demo/examples/circuit_breaker"
-	"github.com/NTR3667/httpx-demo/examples/middleware"
-	mockdemo "github.com/NTR3667/httpx-demo/examples/mock_test"
-	rl "github.com/NTR3667/httpx-demo/examples/rate_limiter"
-	"github.com/NTR3667/httpx-demo/examples/retry"
-	"github.com/NTR3667/httpx-demo/examples/singleflight"
-	"github.com/NTR3667/httpx-demo/examples/tracing"
+	"github.com/n0l3r/httpx-example/examples/auth"
+	"github.com/n0l3r/httpx-example/examples/basic"
+	"github.com/n0l3r/httpx-example/examples/cache"
+	cb "github.com/n0l3r/httpx-example/examples/circuit_breaker"
+	"github.com/n0l3r/httpx-example/examples/middleware"
+	mockdemo "github.com/n0l3r/httpx-example/examples/mock_test"
+	rl "github.com/n0l3r/httpx-example/examples/rate_limiter"
+	"github.com/n0l3r/httpx-example/examples/retry"
+	"github.com/n0l3r/httpx-example/examples/singleflight"
+	"github.com/n0l3r/httpx-example/examples/tracing"
 )
 
 type demo struct {
