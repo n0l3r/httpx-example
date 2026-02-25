@@ -19,8 +19,8 @@ import (
 	"go.opentelemetry.io/otel/sdk/trace/tracetest"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/NTR3667/httpx"
-	httpxtracing "github.com/NTR3667/httpx/tracing"
+	"github.com/n0l3r/httpx"
+	httpxtracing "github.com/n0l3r/httpx/tracing"
 )
 
 // Run executes all tracing examples.
