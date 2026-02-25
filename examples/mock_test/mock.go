@@ -11,8 +11,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/NTR3667/httpx"
-	"github.com/NTR3667/httpx/mock"
+	"github.com/n0l3r/httpx"
+	"github.com/n0l3r/httpx/mock"
 )
 
 // Run executes all mock examples.
