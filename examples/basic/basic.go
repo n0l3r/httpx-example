@@ -17,7 +17,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/NTR3667/httpx"
+	"github.com/n0l3r/httpx"
 )
 
 // --- Data models ---
