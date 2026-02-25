@@ -13,8 +13,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/NTR3667/httpx"
-	"github.com/NTR3667/httpx/cache/tiered"
+	"github.com/n0l3r/httpx"
+	"github.com/n0l3r/httpx/cache/tiered"
 )
 
 // Run executes all cache examples.
