@@ -1,17 +1,17 @@
-# httpx-demo
+# httpx-example
 
-Implementasi komprehensif semua fitur [`httpx`](../httpx) — production-grade HTTP client library untuk Go.
+Comprehensive examples demonstrating all features of [`httpx`](../httpx) — production-grade HTTP client library for Go.
 
-## Menjalankan
+## Running
 
 ```bash
 # Clone & setup
-cd httpx-demo
+cd httpx-example
 
-# Jalankan semua demo
+# Run all examples
 go run main.go
 
-# Jalankan kategori tertentu
+# Run a specific category
 go run main.go basic
 go run main.go retry
 go run main.go cache
@@ -26,11 +26,11 @@ go run main.go mock
 
 ---
 
-## Struktur
+## Structure
 
 ```
-httpx-demo/
-├── main.go                          # Entry point, runner semua demo
+httpx-example/
+├── main.go                          # Entry point, category runner
 └── examples/
     ├── basic/          basic.go     # Core client features
     ├── retry/          retry.go     # Retry + backoff strategies
@@ -41,16 +41,16 @@ httpx-demo/
     ├── auth/           auth.go      # OAuth1, OAuth2, HMAC, Idempotency, Basic Auth
     ├── tracing/        tracing.go   # OpenTelemetry spans + propagation
     ├── singleflight/   singleflight.go      # Request deduplication
-    └── mock_test/      mock.go      # MockTransport untuk testing
+    └── mock_test/      mock.go      # MockTransport for testing
 ```
 
 ---
 
-## Demo per Kategori
+## Examples by Category
 
 ### 🧱 Basic (`examples/basic`)
 
-| # | Demo | Fitur |
+| # | Example | Feature |
 |---|---|---|
 | 1 | New client with options | `WithBaseURL`, `WithTimeout`, `WithDefaultHeader`, `WithConnectionPool` |
 | 2 | GetJSON | `c.GetJSON(ctx, path, &out)` |
@@ -64,7 +64,7 @@ httpx-demo/
 
 ### 🔄 Retry (`examples/retry`)
 
-| # | Demo | Fitur |
+| # | Example | Feature |
 |---|---|---|
 | 1 | Default policy | `httpx.DefaultRetryPolicy()` |
 | 2 | Retry on 5xx | `RetryOnStatus5xx` |
@@ -76,97 +76,97 @@ httpx-demo/
 
 ### 💾 Cache (`examples/cache`)
 
-| # | Demo | Fitur |
+| # | Example | Feature |
 |---|---|---|
 | 1 | MemoryCache | `httpx.NewMemoryCache(ttl)` |
-| 2 | Hit vs miss | Different paths = different cache entries |
+| 2 | Hit vs miss | Different paths produce separate cache entries |
 | 3 | NoopCache | `httpx.NoopCache{}` |
-| 4 | TieredCache | `tiered.New(l1, l2)` — L1 back-fill dari L2 |
-| 5 | TTL expiry | Auto-evict setelah TTL habis |
-| 6 | Invalidation | `cache.Delete(key)` manual evict |
-| 7 | POST not cached | Hanya GET yang di-cache |
+| 4 | TieredCache | `tiered.New(l1, l2)` — L1 back-fill from L2 |
+| 5 | TTL expiry | Entry auto-evicted after TTL expires |
+| 6 | Invalidation | `cache.Delete(key)` manual eviction |
+| 7 | POST not cached | Only GET requests are eligible for caching |
 
 ### ⚡ Circuit Breaker (`examples/circuit_breaker`)
 
-| # | Demo | Fitur |
+| # | Example | Feature |
 |---|---|---|
 | 1 | SimpleCircuitBreaker | `Closed → Open → HalfOpen → Closed` |
 | 2 | Integrated with client | `WithCircuitBreaker(cb)` |
 | 3 | gobreaker adapter | `WithExecutingCircuitBreaker(adapter)` |
-| 4 | CB + logging | CB + `WithLogHook` |
+| 4 | CB + logging | Circuit breaker combined with `WithLogHook` |
 
 ### 🚦 Rate Limiter (`examples/rate_limiter`)
 
-| # | Demo | Fitur |
+| # | Example | Feature |
 |---|---|---|
 | 1 | GlobalRateLimiter | `NewGlobalRateLimiter(rps, burst)` |
 | 2 | PerHostRateLimiter | `NewPerHostRateLimiter(rps, burst, perHost)` |
-| 3 | Throughput measurement | Verifikasi actual RPS ≈ target |
-| 4 | Context cancel | RL + `context.WithTimeout` |
+| 3 | Throughput measurement | Verify actual RPS stays within configured limit |
+| 4 | Context cancel | Rate limiter respects `context.WithTimeout` |
 
 ### 🔗 Middleware (`examples/middleware`)
 
-| # | Demo | Fitur |
+| # | Example | Feature |
 |---|---|---|
 | 1 | Custom middleware | `RoundTripperFunc` timing wrapper |
 | 2 | HeaderInjector | `httpx.HeaderInjector(headers)` |
 | 3 | CorrelationIDInjector | `httpx.CorrelationIDInjector(header, fn)` |
 | 4 | TimeoutMiddleware | `httpx.TimeoutMiddleware(d)` |
 | 5 | SingleflightMiddleware | `httpx.SingleflightMiddleware()` |
-| 6 | Chain order | A→B→C→←C←B←A |
+| 6 | Chain order | A→B→C→server→C→B→A execution order |
 | 7 | Before/After hooks | `WithBeforeRequest`, `WithAfterResponse` |
 
 ### 🔐 Auth (`examples/auth`)
 
-| # | Demo | Fitur |
+| # | Example | Feature |
 |---|---|---|
 | 1 | OAuth 1.0a | `auth.OAuth1Transport` — HMAC-SHA256 signed |
 | 2 | OAuth 2.0 static | `auth.StaticTokenSource` |
 | 3 | OAuth 2.0 custom | Custom `TokenSource` (auto-refresh pattern) |
-| 4 | HMAC signing | `auth.HMACTransport` — keyId + ts + sig |
+| 4 | HMAC signing | `auth.HMACTransport` — keyId + timestamp + signature |
 | 5 | Idempotency Key | `auth.IdempotencyTransport` |
-| 6 | Basic Auth | `.BasicAuth(user, pass)` di request builder |
-| 7 | Bearer token | `.BearerToken(token)` di request builder |
+| 6 | Basic Auth | `.BasicAuth(user, pass)` on request builder |
+| 7 | Bearer token | `.BearerToken(token)` on request builder |
 
 ### 📊 Tracing (`examples/tracing`)
 
-| # | Demo | Fitur |
+| # | Example | Feature |
 |---|---|---|
-| 1 | Basic OTel span | `tracing.Transport` — span per request |
+| 1 | Basic OTel span | `tracing.Transport` — one span per request |
 | 2 | Trace propagation | W3C `Traceparent` header injection |
-| 3 | Error span | 5xx → span status `Error` |
+| 3 | Error span | 5xx → span status set to `Error` |
 | 4 | Manual span | Parent span wrapping multiple HTTP calls |
 
 ### 🔁 Singleflight (`examples/singleflight`)
 
-| # | Demo | Fitur |
+| # | Example | Feature |
 |---|---|---|
-| 1 | SingleflightMiddleware | 10 goroutines → 1 server call |
+| 1 | SingleflightMiddleware | 10 goroutines → exactly 1 server call |
 | 2 | WithSingleflight | Client-level option |
-| 3 | POST not deduped | POST selalu dikirim |
-| 4 | Latency benefit | 20 concurrent calls selesai dalam ~1x server delay |
+| 3 | POST not deduplicated | POST requests always reach the server |
+| 4 | Latency benefit | 20 concurrent calls complete in ~1x server delay |
 
 ### 🧪 Mock (`examples/mock_test`)
 
-| # | Demo | Fitur |
+| # | Example | Feature |
 |---|---|---|
 | 1 | Basic mock | `OnGet(path, handler)` |
 | 2 | Simulate errors | Network error + 4xx + 5xx |
 | 3 | Multi method | OnGet, OnPost, OnPut, OnDelete |
-| 4 | Table-driven | Scenario testing pattern |
+| 4 | Table-driven | Parameterized scenario testing pattern |
 | 5 | CallCount | `mt.CallCount()`, `mt.Requests` |
-| 6 | Default handler | Catch-all untuk unknown routes |
+| 6 | Default handler | Catch-all for unregistered routes |
 
 ---
 
-## Catatan Desain
+## Design Notes
 
-- Demo ini menggunakan `httptest.NewServer` untuk semua test server — tidak butuh external API
-- Setiap example adalah fungsi independen, bisa dipelajari dan dijalankan terpisah
-- `go run main.go <category>` menjalankan hanya satu kategori
-- Repo ini menggunakan `replace` directive di `go.mod` untuk point ke local `httpx` package
+- All examples use `httptest.NewServer` — no external API or service required
+- Each example is an independent function and can be studied or run in isolation
+- `go run main.go <category>` runs only the specified category
+- This repo uses a `replace` directive in `go.mod` to reference the local `httpx` package
 
 ```
-require github.com/NTR3667/httpx v0.0.0-...
-replace github.com/NTR3667/httpx => ../httpx
+require github.com/n0l3r/httpx v0.0.0-...
+replace github.com/n0l3r/httpx => ../httpx
 ```
