@@ -12,8 +12,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/NTR3667/httpx"
-	gbadapter "github.com/NTR3667/httpx/breaker/gobreaker"
+	"github.com/n0l3r/httpx"
+	gbadapter "github.com/n0l3r/httpx/breaker/gobreaker"
 	gb "github.com/sony/gobreaker/v2"
 )
 
